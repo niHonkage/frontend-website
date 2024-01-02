@@ -34,7 +34,10 @@
       </li>
     </ul>
     <popup-list v-model="isVisible">
-      <div>测试内容</div>
+      <category-menu
+        :categorys="data"
+        @onClickChoose="onClickChoose"
+      ></category-menu>
     </popup-list>
   </div>
 </template>
@@ -42,6 +45,7 @@
 import { ref, onBeforeUpdate, watch } from 'vue'
 import { useScroll } from '@vueuse/core'
 import PopupList from '@/libs/PopupList/index.vue'
+import CategoryMenu from '@/views/main/components/menu/index.vue'
 
 defineProps({
   data: {
@@ -85,6 +89,7 @@ watch(currentIndex, (val) => {
 
 // item点击事件
 const onClickChoose = (index) => {
+  isVisible.value = false
   currentIndex.value = index
 }
 

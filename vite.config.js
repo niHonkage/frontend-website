@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       // 代理所有 /api 的请求，该请求将被代理到target中
-      api: {
+      '/api': {
         target: 'https://api.imooc-front.lgdsunday.club/',
         changeOrigin: true
       }

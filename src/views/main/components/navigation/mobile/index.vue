@@ -14,14 +14,18 @@
       <li
         class="fixed top-0 right-[-1px] h-4 px-1 flex items-center bg-white shadow-l-white z-20"
       >
-        <svg-icon name="hamburger" class="w-1.5 h-1.5"></svg-icon>
+        <svg-icon
+          name="hamburger"
+          class="w-1.5 h-1.5"
+          @click="isVisible = !isVisible"
+        ></svg-icon>
       </li>
       <li
         v-for="(item, index) in data"
         :key="item.id"
         class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-4"
         :ref="setItemRef"
-        @click="onClick(index)"
+        @click="onClickChoose(index)"
         :class="{
           'text-zinc-100': currentIndex === index
         }"
@@ -29,11 +33,15 @@
         {{ item.name }}
       </li>
     </ul>
+    <popup-list v-model="isVisible">
+      <div>测试内容</div>
+    </popup-list>
   </div>
 </template>
 <script setup>
 import { ref, onBeforeUpdate, watch } from 'vue'
 import { useScroll } from '@vueuse/core'
+import PopupList from '@/libs/PopupList/index.vue'
 
 defineProps({
   data: {
@@ -45,7 +53,7 @@ defineProps({
 const sliderTarget = ref(null)
 const sliderStyle = ref({
   transform: 'translateX(0px)',
-  width: '60px'
+  width: '46px'
 })
 // 选中的 item 下标
 const currentIndex = ref(0)
@@ -76,7 +84,10 @@ watch(currentIndex, (val) => {
 })
 
 // item点击事件
-const onClick = (index) => {
+const onClickChoose = (index) => {
   currentIndex.value = index
 }
+
+// 控制popup显示
+const isVisible = ref(false)
 </script>

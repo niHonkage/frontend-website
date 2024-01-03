@@ -5,7 +5,7 @@ import pcTerminalRoutes from './modules/pc-routes.js'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: isMobileTerminal ? mobileTerminalRoutes : pcTerminalRoutes
+  routes: isMobileTerminal.value ? mobileTerminalRoutes : pcTerminalRoutes
 })
 
 export default router

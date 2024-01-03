@@ -20,7 +20,7 @@
       :name="icon"
       class="m-auto"
       :fillClass="iconClass"
-      :color="color"
+      :color="iconColor"
       :class="sizeEnum[sizeKey].icon"
     ></svg-icon>
     <!-- 文字按钮 -->

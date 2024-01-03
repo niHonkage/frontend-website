@@ -26,7 +26,9 @@
       ></div>
       <!-- 搜索按钮 -->
       <my-button
-        class="absolute top-[50%] translate-y-[-50%] right-1"
+        class="absolute top-[50%] translate-y-[-50%] right-1 rounded-full"
+        type="primary"
+        size="default"
         icon="search"
         iconColor="#ffffff"
       ></my-button>

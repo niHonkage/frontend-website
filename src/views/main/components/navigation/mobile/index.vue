@@ -21,7 +21,7 @@
         ></svg-icon>
       </li>
       <li
-        v-for="(item, index) in data"
+        v-for="(item, index) in $store.getters.categorys"
         :key="item.id"
         class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-4"
         :ref="setItemRef"
@@ -34,10 +34,7 @@
       </li>
     </ul>
     <popup-list v-model="isVisible">
-      <category-menu
-        :categorys="data"
-        @onClickChoose="onClickChoose"
-      ></category-menu>
+      <category-menu @onClickChoose="onClickChoose"></category-menu>
     </popup-list>
   </div>
 </template>
@@ -46,13 +43,6 @@ import { ref, onBeforeUpdate, watch } from 'vue'
 import { useScroll } from '@vueuse/core'
 import PopupList from '@/libs/PopupList/index.vue'
 import CategoryMenu from '@/views/main/components/menu/index.vue'
-
-defineProps({
-  data: {
-    type: Array,
-    reqiured: true
-  }
-})
 
 const sliderTarget = ref(null)
 const sliderStyle = ref({

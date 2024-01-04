@@ -1,4 +1,4 @@
 <template>
-  <div>Main区域</div>
+  <router-view></router-view>
 </template>
 <script setup></script>

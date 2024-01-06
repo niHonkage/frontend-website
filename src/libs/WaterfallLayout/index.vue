@@ -22,7 +22,8 @@
   </div>
 </template>
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { getImgElements, getAllImgs, onCompleteImgs } from './utils.js'
 
 const props = defineProps({
   data: {
@@ -74,7 +75,7 @@ const useContainerWidth = () => {
     containerTarget.value,
     null
   )
-  console.log(containerTarget.value.offsetWidth)
+  console.log(paddingRight)
   // 容器左边距
   containerLeft.value = parseFloat(paddingLeft)
   // 容器总宽度：不包括margin、padding、border
@@ -90,14 +91,67 @@ const columnWidth = ref(0)
 const totalColumnSpacing = computed(() => {
   return props.columnSpacing * (props.column - 1)
 })
+
 // 计算列宽
 const useColumnWidth = () => {
   useContainerWidth()
-  columnWidth.value = (containerWidth.value - totalColumnSpacing) / props.column
+  columnWidth.value =
+    (containerWidth.value - totalColumnSpacing.value) / props.column
 }
 // 在mounted中调用
 onMounted(() => {
   useColumnWidth()
   console.log(columnWidth.value)
 })
+
+// item 高度集合
+let itemHeights = []
+// 监听图片加载
+const waitImgsComplete = () => {
+  itemHeights = []
+  // 拿到item元素
+  let itemElements = [...document.getElementsByClassName('waterfall-item')]
+  // 拿到img标签
+  let imgElements = getImgElements(itemElements)
+  // 拿到img的src
+  let allImgs = getAllImgs(imgElements)
+  // 等待img加载
+  onCompleteImgs(allImgs).then(() => {
+    itemElements.forEach((el) => {
+      itemHeights.push(el.offsetHeight)
+    })
+    // 渲染位置
+    useItemLocation()
+  })
+}
+
+// 不需要图片预读取时的计算高度
+const getItemHeights = () => {
+  let itemElements = [...document.getElementsByClassName('waterfall-item')]
+  itemElements.forEach((el) => {
+    itemHeights.push(el.offsetHeight)
+  })
+}
+
+// 监听数据变化来重新获取itemHeights
+watch(
+  props.data,
+  (val) => {
+    nextTick(() => {
+      if (props.picturePreReading) {
+        waitImgsComplete()
+      } else {
+        getItemHeights()
+      }
+    })
+  },
+  {
+    immediate: true,
+    deep: true
+  }
+)
+
+const useItemLocation = () => {
+  console.log(itemHeights)
+}
 </script>

@@ -20,6 +20,9 @@ dependencies:
   vuex:
     specifier: ^4.1.0
     version: 4.1.0(vue@3.4.3)
+  vuex-persist:
+    specifier: ^3.1.3
+    version: 3.1.3(vuex@4.1.0)
   vuex-persistedstate:
     specifier: ^4.1.0
     version: 4.1.0(vuex@4.1.0)
@@ -1213,6 +1216,10 @@ packages:
     dependencies:
       to-regex-range: 5.0.1
     dev: true
+
+  /flatted@3.2.9:
+    resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
+    dev: false
 
   /follow-redirects@1.15.4:
     resolution: {integrity: sha512-Cr4D/5wlrb0z9dgERpUL3LrmPKVDsETIJhaCMeDfuFYcqa5bldGV6wBsAN6X/vxlXQtFBMrXdXxdL8CbDTGniw==}
@@ -2559,6 +2566,16 @@ packages:
       '@vue/runtime-dom': 3.4.3
       '@vue/server-renderer': 3.4.3(vue@3.4.3)
       '@vue/shared': 3.4.3
+
+  /vuex-persist@3.1.3(vuex@4.1.0):
+    resolution: {integrity: sha512-QWOpP4SxmJDC5Y1+0+Yl/F4n7z27syd1St/oP+IYCGe0X0GFio0Zan6kngZFufdIhJm+5dFGDo3VG5kdkCGeRQ==}
+    peerDependencies:
+      vuex: '>=2.5'
+    dependencies:
+      deepmerge: 4.3.1
+      flatted: 3.2.9
+      vuex: 4.1.0(vue@3.4.3)
+    dev: false
 
   /vuex-persistedstate@4.1.0(vuex@4.1.0):
     resolution: {integrity: sha512-3SkEj4NqwM69ikJdFVw6gObeB0NHyspRYMYkR/EbhR0hbvAKyR5gksVhtAfY1UYuWUOCCA0QNGwv9pOwdj+XUQ==}

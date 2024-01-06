@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full border-b bg-white border-b-zinc-200 px-2 py-1">
+  <div
+    class="w-full border-b bg-white border-b-zinc-200 dark:bg-zinc-800 dark:border-b-zinc-700 px-2 py-1"
+  >
     <div class="flex items-center">
       <img
         class="h-4 mr-2 cursor-pointer rounded-full"

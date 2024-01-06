@@ -6,7 +6,7 @@
     </div>
     <transition name="slide">
       <div
-        class="absolute p-1 rounded-md bg-white z-20 border"
+        class="absolute p-1 rounded-md bg-white dark:bg-zinc-900 z-20 border dark:border-zinc-700"
         v-show="isVisible"
         ref="contentRef"
         :style="contentPlace"

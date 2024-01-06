@@ -3,7 +3,7 @@
     <template #reference>
       <!-- 展示区：头像、图标 -->
       <div
-        class="guide-user relative flex items-center p-0.5 rounded-sm cursor-pointer duration-200 outline-none hover:bg-zinc-100"
+        class="guide-user relative flex items-center p-0.5 rounded-sm cursor-pointer duration-200 outline-none hover:bg-zinc-100 dark:hover:bg-zinc-900"
       >
         <img
           src="https://github.com/nihonKage.png"
@@ -13,7 +13,7 @@
         <svg-icon
           name="down-arrow"
           class="w-1.5 h-1.5 ml-0.5"
-          fillClass="fill-zinc-900"
+          fillClass="fill-zinc-900 dark:fill-zinc-300"
         ></svg-icon>
         <!-- vip 标记 -->
         <svg-icon
@@ -27,10 +27,16 @@
       <div
         v-for="item in menuArr"
         :key="item.id"
-        class="flex items-center p-1 cursor-pointer rounded hover:bg-zinc-100/60"
+        class="flex items-center p-1 cursor-pointer rounded hover:bg-zinc-100/60 dark:hover:bg-zinc-800"
       >
-        <svg-icon name="item.icon" class="w-1.5 h-1.5 mr-1"></svg-icon>
-        <span class="text-zinc-800 text-sm">{{ item.title }}</span>
+        <svg-icon
+          :name="item.icon"
+          fillClass="fill-zinc-900 dark:fill-zinc-300"
+          class="w-1.5 h-1.5 mr-1"
+        ></svg-icon>
+        <span class="text-zinc-800 dark:text-zinc-300 text-sm">{{
+          item.title
+        }}</span>
       </div>
     </div>
   </popover-card>

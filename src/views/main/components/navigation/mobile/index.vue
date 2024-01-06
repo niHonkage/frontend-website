@@ -1,18 +1,18 @@
 <template>
-  <div class="bg-white sticky top-0 left-0 z-10">
+  <div class="bg-white dark:bg-zinc-900 sticky top-0 left-0 z-10">
     <ul
       class="relative flex overflow-x-auto p-1 text-xs text-zinc-600 overflow-hidden"
       ref="ulTarget"
     >
       <!-- 滑块 -->
       <li
-        class="absolute bg-zinc-900 rounded-lg h-[22px] duration-200"
+        class="absolute bg-zinc-900 dark:bg-zinc-800 rounded-lg h-[22px] duration-200"
         ref="sliderTarget"
         :style="sliderStyle"
       ></li>
       <!-- 汉堡按钮 -->
       <li
-        class="fixed top-0 right-[-1px] h-4 px-1 flex items-center bg-white shadow-l-white z-20"
+        class="fixed top-0 right-[-1px] h-4 px-1 flex items-center bg-white dark:bg-zinc-900 shadow-l-white dark:shdaow-l-dark z-20"
       >
         <svg-icon
           name="hamburger"

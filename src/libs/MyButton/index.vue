@@ -92,7 +92,7 @@ const props = defineProps({
   // 大小风格
   size: {
     type: String,
-    required: true,
+    default: 'default',
     validator(val) {
       // 获取所有可设置的大小，排除icon-开头的
       const keys = Object.keys(sizeEnum).filter((key) => !key.includes('icon-'))

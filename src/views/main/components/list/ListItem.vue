@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white dark:bg-zinc-900 xl:dark:bg-zinc-800 rounded pb-1 w-[230px] h-[280px]"
+    class="bg-white dark:bg-zinc-900 xl:dark:bg-zinc-800 rounded pb-1 w-[280px]"
   >
     <div class="relative w-full rounded cursor-zoom-in group">
       <!-- 图片 -->
@@ -10,7 +10,9 @@
         class="hidden opacity-0 w-full h-full bg-zinc-900/50 absolute top-0 left-0 rounded duration-300 group-hover:opacity-100 xl:block"
       >
         <!-- 分享 -->
-        <my-button class="absolute top-1.5 left-1.5">分享</my-button>
+        <my-button class="absolute top-1.5 left-1.5 bg-red-500 text-zinc-50"
+          >分享</my-button
+        >
         <!-- 点赞 -->
         <my-button
           class="absolute top-1.5 right-1.5"

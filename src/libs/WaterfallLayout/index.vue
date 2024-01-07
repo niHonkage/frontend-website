@@ -77,8 +77,16 @@ const containerWidth = ref(0)
 const containerLeft = ref(0)
 // 计算容器总宽度
 const useContainerWidth = () => {
+  const { paddingLeft, paddingRight } = getComputedStyle(
+    containerTarget.value,
+    null
+  )
+  containerLeft.value = paddingLeft
   // 容器总宽度：不包括margin、padding、border
-  containerWidth.value = containerTarget.value.offsetWidth
+  containerWidth.value =
+    containerTarget.value.offsetWidth -
+    parseInt(paddingLeft) -
+    parseInt(paddingRight)
 }
 
 // 列宽
@@ -96,7 +104,6 @@ const useColumnWidth = () => {
 }
 // 在mounted中调用
 onMounted(() => {
-  console.log(props.data)
   useColumnWidth()
 })
 
@@ -134,6 +141,7 @@ const useItemHeights = () => {
 watch(
   props.data,
   (val) => {
+    console.log(val)
     // 在第一次获取数据时构建高度记录容器
     const resetColumnHeight = val.every((item) => !item._style)
     if (resetColumnHeight) {
@@ -161,9 +169,6 @@ const useItemLocation = () => {
     item._style = {}
     item._style.left = getItemLeft()
     item._style.top = getItemTop()
-    if (index < 7) {
-      console.log(item._style)
-    }
     // 指定的列的高度自增
     increasingHeight(index)
   })
@@ -174,7 +179,9 @@ const useItemLocation = () => {
 // getItemLeft：获取最小高度的列，left = 所在列 * (columnWidth + columnSpacing) + containerLeft
 const getItemLeft = () => {
   const column = getMinColumn(columnHeightObj.value)
-  return column * (columnWidth.value + props.columnSpacing)
+  return (
+    column * (columnWidth.value + props.columnSpacing) + containerLeft.value
+  )
 }
 // top = 列高对象中的最小值
 const getItemTop = () => {

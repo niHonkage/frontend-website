@@ -39,9 +39,8 @@ const isFinished = ref(false)
 const pexelsList = ref([])
 
 const getPexelsData = async () => {
-  isLoading.value = true
   // 首先判断是否加载完成，加载完成直接退出
-  if (isFinished) {
+  if (isFinished.value) {
     return
   }
   // 然后判断是否不为首次加载，除了第一次加载后续page自增

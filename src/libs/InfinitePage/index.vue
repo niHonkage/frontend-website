@@ -19,7 +19,7 @@
 </template>
 <script setup>
 import { useVModel, useIntersectionObserver } from '@vueuse/core'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 const props = defineProps({
   // 是否处于加载状态
   modelValue: {
@@ -40,15 +40,28 @@ const loading = useVModel(props)
 
 // 滚动的元素
 const loadingTarget = ref(null)
+const targetIsIntersection = ref(false)
 useIntersectionObserver(
   loadingTarget,
   ([{ isIntersecting }], obserserElement) => {
-    // 三个条件：被监视元素处于可视视口内，不处于加载中的状态，不处于加载完成状态
-    if (isIntersecting && !loading.value && !props.isFinished) {
-      console.log('loading')
-      loading.value = true
-      emits('onLoad')
-    }
+    targetIsIntersection.value = isIntersecting
+    onEmit()
   }
 )
+
+const onEmit = () => {
+  // 三个条件：被监视元素处于可视视口内，不处于加载中的状态，不处于加载完成状态
+  if (targetIsIntersection.value && !loading.value && !props.isFinished) {
+    loading.value = true
+    // 触发更多加载
+    emits('onLoad')
+  }
+}
+
+watch(loading, (val) => {
+  // 延时操作，解决首次加载如果导致被监视元素还在可视窗口内不会再次触发回调的问题
+  setTimeout(() => {
+    onEmit()
+  }, 100)
+})
 </script>

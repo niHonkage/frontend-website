@@ -5,6 +5,7 @@
     <div class="relative w-full rounded cursor-zoom-in group">
       <!-- 图片 -->
       <img
+        v-lazy
         :src="data.photo"
         class="w-full rounded bg-transparent"
         :style="{
@@ -50,7 +51,7 @@
     </p>
     <!-- 作者 -->
     <div class="flex items-center">
-      <img :src="data.avatar" class="rounded-full w-2 h-2" />
+      <img v-lazy :src="data.avatar" class="rounded-full w-2 h-2" />
       <span class="text-sm text-zinc-500 ml-1">{{ data.author }}</span>
     </div>
   </div>

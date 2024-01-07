@@ -4,6 +4,7 @@
   >
     <div class="flex items-center">
       <img
+        v-lazy
         class="h-4 mr-2 cursor-pointer rounded-full"
         src="https://github.com/nihonKage.png"
         @click="onToHome"

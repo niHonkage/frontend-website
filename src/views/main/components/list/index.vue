@@ -1,13 +1,14 @@
 <template>
   <div>
     <waterfall-layout
+      class="w-full px-1"
       :data="pexelsList"
       nodeKey="id"
       :column="isMobileTerminal ? 2 : 5"
-      :picturePrereading="true"
+      :picturePrereading="flase"
     >
       <template v-slot="{ item, width }">
-        <list-item :data="item"></list-item>
+        <list-item :data="item" :width="width"></list-item>
       </template>
     </waterfall-layout>
   </div>

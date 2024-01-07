@@ -97,7 +97,6 @@ const useColumnWidth = () => {
 // 在mounted中调用
 onMounted(() => {
   useColumnWidth()
-  console.log(columnWidth.value)
 })
 
 // item 高度集合
@@ -127,12 +126,14 @@ const useItemHeights = () => {
   itemElements.forEach((el) => {
     itemHeights.push(el.offsetHeight)
   })
+  useItemLocation()
 }
 
 // 监听数据变化来重新获取itemHeights
 watch(
   props.data,
   (val) => {
+    console.log(val)
     // 在第一次获取数据时构建高度记录容器
     const resetColumnHeight = val.every((item) => !item._style)
     if (resetColumnHeight) {
@@ -195,4 +196,31 @@ onUnmounted(() => {
     delete item._style
   })
 })
+
+// 监听列数的变化，重新构建瀑布流
+const reset = () => {
+  // 设备类型切换时会出现宽度计算错误，延迟重新计算
+  setTimeout(() => {
+    // 重新计算列宽
+    useColumnWidth()
+    // 重置所有定位数据
+    props.data.forEach((item) => {
+      // data处于深度监听，这里的改动会触发重新定位
+      item._style = null
+    }, 100)
+  })
+}
+watch(
+  () => props.column,
+  () => {
+    if (props.picturePreReading) {
+      // 在 picturePreReading 为 true 的前提下，需要首先为列宽滞空，列宽滞空之后，会取消瀑布流渲染
+      columnWidth.value = 0
+      // 等待页面渲染后，重新执行计算，否则item高度计算不准确
+      nextTick(reset)
+    } else {
+      reset()
+    }
+  }
+)
 </script>

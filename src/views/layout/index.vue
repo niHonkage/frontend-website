@@ -2,7 +2,7 @@
   <div class="h-screen">
     <!-- 需要自定义h-head高度 -->
     <header-area class="h-header"></header-area>
-    <div class="h-full">
+    <div class="h-main">
       <main-area></main-area>
     </div>
     <floating-component></floating-component>

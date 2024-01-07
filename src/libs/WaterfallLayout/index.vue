@@ -96,6 +96,7 @@ const useColumnWidth = () => {
 }
 // 在mounted中调用
 onMounted(() => {
+  console.log(props.data)
   useColumnWidth()
 })
 
@@ -133,7 +134,6 @@ const useItemHeights = () => {
 watch(
   props.data,
   (val) => {
-    console.log(val)
     // 在第一次获取数据时构建高度记录容器
     const resetColumnHeight = val.every((item) => !item._style)
     if (resetColumnHeight) {

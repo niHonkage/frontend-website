@@ -81,12 +81,12 @@ const useContainerWidth = () => {
     containerTarget.value,
     null
   )
-  containerLeft.value = paddingLeft
+  containerLeft.value = parseFloat(paddingLeft)
   // 容器总宽度：不包括margin、padding、border
   containerWidth.value =
-    containerTarget.value.offsetWidth -
-    parseInt(paddingLeft) -
-    parseInt(paddingRight)
+    containerTarget.value.clientWidth -
+    parseFloat(paddingLeft) -
+    parseFloat(paddingRight)
 }
 
 // 列宽
@@ -214,8 +214,8 @@ const reset = () => {
     props.data.forEach((item) => {
       // data处于深度监听，这里的改动会触发重新定位
       item._style = null
-    }, 100)
-  })
+    })
+  }, 100)
 }
 watch(
   () => props.column,

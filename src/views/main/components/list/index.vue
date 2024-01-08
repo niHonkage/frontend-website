@@ -27,9 +27,11 @@ import { ref, watch } from 'vue'
 import { isMobileTerminal } from '@/utils/flexible.js'
 import { useStore } from 'vuex'
 
-const query = {
+let query = {
   page: 1,
-  size: 20
+  size: 20,
+  categoryId: '',
+  searchText: ''
 }
 
 // 加载状态
@@ -51,8 +53,7 @@ const store = useStore()
 watch(
   () => store.getters.currentCategory,
   (currentCategory) => {
-    const newQuery = { page: 1, categoryId: currentCategory.id }
-    resetQuery(newQuery)
+    resetQuery({ page: 1, categoryId: currentCategory.id })
   }
 )
 

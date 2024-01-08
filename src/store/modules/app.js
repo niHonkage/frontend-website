@@ -1,4 +1,4 @@
-import ALL_CATEGORY_ITEM from '@/constants'
+import { ALL_CATEGORY_ITEM } from '@/constants'
 export default {
   namespaced: true,
   state: () => ({

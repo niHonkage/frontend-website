@@ -1,5 +1,3 @@
-import lazy from './modules/lazy.js'
-
 export default {
   install(app) {
     // import.meta.globEager 为同步导入

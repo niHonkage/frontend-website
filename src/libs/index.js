@@ -11,3 +11,6 @@ export default {
     }
   }
 }
+
+// 导入导出
+export { confirm } from './ConfirmDialog'

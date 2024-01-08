@@ -3,12 +3,13 @@ import theme from './modules/theme.js'
 import category from './modules/category'
 import app from './modules/app.js'
 import VuexPersistence from 'vuex-persist'
+import search from './modules/search.js'
 
 // 配置vuex-persist
 const vuexLocal = new VuexPersistence({
   key: 'local',
   storage: window.localStorage,
-  modules: ['category', 'theme']
+  modules: ['category', 'theme', 'search']
 })
 const store = createStore({
   state() {
@@ -23,12 +24,14 @@ const store = createStore({
       return getters.categorys.findIndex((category) => {
         return category.id === getters.currentCategory.id
       })
-    }
+    },
+    searchHistory: (state) => state.search.historyList
   },
   modules: {
     category,
     theme,
-    app
+    app,
+    search
   },
   plugins: [vuexLocal.plugin]
 })

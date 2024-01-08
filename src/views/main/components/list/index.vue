@@ -23,8 +23,9 @@
 <script setup>
 import ListItem from './ListItem.vue'
 import { getPexelsList } from '@/api/pexels.js'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { isMobileTerminal } from '@/utils/flexible.js'
+import { useStore } from 'vuex'
 
 const query = {
   page: 1,
@@ -37,6 +38,23 @@ const isLoading = ref(false)
 const isFinished = ref(false)
 // 数据源
 const pexelsList = ref([])
+
+const resetQuery = (newQuery) => {
+  // 希望添加的新参数
+  query = { ...query, ...newQuery }
+  // 重置状态和数据源
+  isFinished.value = false
+  pexelsList.value = []
+}
+
+const store = useStore()
+watch(
+  () => store.getters.currentCategory,
+  (currentCategory) => {
+    const newQuery = { page: 1, categoryId: currentCategory.id }
+    resetQuery(newQuery)
+  }
+)
 
 const getPexelsData = async () => {
   // 首先判断是否加载完成，加载完成直接退出

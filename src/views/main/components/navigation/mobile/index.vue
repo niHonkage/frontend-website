@@ -25,9 +25,9 @@
         :key="item.id"
         class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-4"
         :ref="setItemRef"
-        @click="onClickChoose(index)"
+        @click="onClickChoose(item)"
         :class="{
-          'text-zinc-100': currentIndex === index
+          'text-zinc-100': $store.getters.currentCategoryIndex === index
         }"
       >
         {{ item.name }}
@@ -43,14 +43,14 @@ import { ref, onBeforeUpdate, watch } from 'vue'
 import { useScroll } from '@vueuse/core'
 import PopupList from '@/libs/PopupList/index.vue'
 import CategoryMenu from '@/views/main/components/menu/index.vue'
+import { useStore } from 'vuex'
 
 const sliderTarget = ref(null)
 const sliderStyle = ref({
   transform: 'translateX(0px)',
   width: '46px'
 })
-// 选中的 item 下标
-const currentIndex = ref(0)
+
 // 获取所有 item 子元素集合
 let itemRefs = []
 // :ref='回调函数' 回调中可以随着v-for循环得到所有子节点
@@ -66,21 +66,25 @@ onBeforeUpdate(() => {
 // 获取ul元素，计算滑动偏移量
 const ulTarget = ref(null)
 const { x: ulScrollLeft } = useScroll(ulTarget)
-watch(currentIndex, (val) => {
-  // 获取选中的元素的 左间距left 和 宽度width
-  const { left, width } = itemRefs[val].getBoundingClientRect()
-  // 为sliderStyle设置属性
-  sliderStyle.value = {
-    // ul横向滚动距离 元素距左边缘距离减去左边padding
-    transform: `translateX(${left - 9.5 + ulScrollLeft.value}px)`,
-    width: width + 'px'
+const store = useStore()
+watch(
+  () => store.getters.currentCategoryIndex,
+  (val) => {
+    // 获取选中的元素的 左间距left 和 宽度width
+    const { left, width } = itemRefs[val].getBoundingClientRect()
+    // 为sliderStyle设置属性
+    sliderStyle.value = {
+      // ul横向滚动距离 元素距左边缘距离减去左边padding
+      transform: `translateX(${left - 9.5 + ulScrollLeft.value}px)`,
+      width: width + 'px'
+    }
   }
-})
+)
 
 // item点击事件
-const onClickChoose = (index) => {
+const onClickChoose = (item) => {
   isVisible.value = false
-  currentIndex.value = index
+  store.commit('app/changeCurrentCategory', item)
 }
 
 // 控制popup显示

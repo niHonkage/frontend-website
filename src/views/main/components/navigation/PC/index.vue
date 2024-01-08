@@ -20,10 +20,10 @@
         class="shrink-0 px-1.5 py-0 text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-300 last:mr-4 duration-200 text-base font-bold h-4 leading-4 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-900 rounded mr-1 mb-1"
         v-for="(item, index) in $store.getters.categorys"
         :key="item.id"
-        @click="onItemClick(index)"
+        @click="onItemClick(item)"
         :class="{
           'text-zinc-900 dark:text-zinc-300 bg-zinc-200 dark:bg-zinc-900':
-            index === currentIndex
+            index === $store.getters.currentCategoryIndex
         }"
       >
         {{ item.name }}
@@ -33,6 +33,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import { useStore } from 'vuex'
 
 // 展开收起状态
 const isOpen = ref(false)
@@ -41,8 +42,8 @@ const onToggle = () => {
 }
 
 // 选中状态
-const currentIndex = ref(0)
-const onItemClick = (index) => {
-  currentIndex.value = index
+const store = useStore()
+const onItemClick = (item) => {
+  store.commit('app/changeCurrentCategory', item)
 }
 </script>

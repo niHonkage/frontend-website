@@ -14,3 +14,4 @@ export default {
 
 // 导入导出
 export { myConfirm } from './ConfirmDialog'
+export { message } from './MessageBox'

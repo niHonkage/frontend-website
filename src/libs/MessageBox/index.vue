@@ -15,6 +15,7 @@
   </transition>
 </template>
 <script>
+const typeEnum = ['warn', 'error', 'success']
 // 样式表数据
 const styles = {
   // 警告

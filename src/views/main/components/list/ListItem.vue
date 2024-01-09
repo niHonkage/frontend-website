@@ -16,6 +16,7 @@
         :style="{
           height: (width * data.photoHeight) / data.photoWidth + 'px'
         }"
+        ref="imgTarget"
       />
       <!-- 遮罩层 -->
       <div
@@ -46,6 +47,7 @@
           size="small"
           type="info"
           icon="full"
+          @click="onImgFullScreen"
         ></my-button>
       </div>
     </div>
@@ -65,7 +67,10 @@
 <script setup>
 import { randomRGB } from '../../../../utils/colors'
 import { saveAs } from 'file-saver'
-defineProps({
+import { message } from '@/libs'
+import { useFullscreen } from '@vueuse/core'
+import { ref } from 'vue'
+const props = defineProps({
   data: {
     type: Object,
     required: true
@@ -77,6 +82,13 @@ defineProps({
 
 // 下载功能
 const onDownload = () => {
-  saveAs(props.data.photoDownLink)
+  message('success', '图片下载成功')
+  // 延迟一段时间执行，提升体验
+  setTimeout(() => {
+    saveAs(props.data.photoDownLink)
+  }, 300)
 }
+
+const imgTarget = ref(null)
+const { enter: onImgFullScreen } = useFullscreen(imgTarget)
 </script>

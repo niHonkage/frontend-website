@@ -8,7 +8,7 @@ import confirmComponent from './index.vue'
  * @param {*} confirmText 确定按钮文本
  * @returns
  */
-export const confirm = (
+export const myConfirm = (
   title,
   content,
   cancelText = '取消',

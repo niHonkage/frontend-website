@@ -4,7 +4,7 @@
     <div class="h-[140px] flex" v-if="themesData.list.length">
       <!-- 左边的大图 -->
       <div
-        class="w-[260px] rounded relative cursor-pointer"
+        class="w-[260px] rounded relative cursor-pointer overflow-hidden"
         :style="{ backgroundColor: randomRGB() }"
       >
         <img
@@ -13,7 +13,7 @@
           class="w-full object-cover rounded"
         />
         <p
-          class="absolute left-0 bottom-0 pl-1 w-full h-[45%] flex items-center backdrop-blur-[5px] text-white text-xs duration-300 hover:text-zinc-500 hover:backdrop-blur-none"
+          class="absolute left-0 bottom-0 pl-1 w-full h-full flex items-end pb-1.5 backdrop-blur-[5px] text-white text-xs duration-300 hover:backdrop-blur-none rounded"
         >
           #{{ themesData.big.title }}
         </p>
@@ -23,12 +23,12 @@
         <div
           v-for="item in themesData.list"
           :key="item.id"
-          class="h-[45%] w-[260px] text-white text-xs hover:text-zinc-500 relative mb-1.5 ml-1.5 rounded"
+          class="h-[45%] w-[260px] text-white text-xs relative mb-1.5 ml-1.5 rounded overflow-hidden cursor-pointer"
           :style="{ backgroundColor: randomRGB() }"
         >
           <img :src="item.photo" class="rounded w-full object-cover" v-lazy />
           <p
-            class="backdrop-blur-[5px] hover:backdrop-blur-none absolute bottom-0 left-0 pl-1 h-full w-full items-center duration-300"
+            class="backdrop-blur-[5px] hover:backdrop-blur-none absolute bottom-0 left-0 pl-1 h-full w-full duration-300 flex items-end pb-1 rounded"
           >
             #{{ item.title }}
           </p>

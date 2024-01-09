@@ -13,7 +13,7 @@
     <div class="flex flex-wrap">
       <div
         class="mr-2 mb-1.5 text-zinc-900 bg-zinc-100 font-bold px-1.5 py-0.5 flex items-center cursor-pointer text-sm rounded-sm hover:bg-zinc-200"
-        v-for="(item, index) in $store.getters.historyList"
+        v-for="(item, index) in $store.getters.searchHistory"
         :key="item"
         @click="onItemClick(item)"
       >
@@ -32,13 +32,14 @@ const EMITS_ITEM_CLICK = 'itemClick'
 </script>
 <script setup>
 import { useStore } from 'vuex'
+import { myConfirm } from '@/libs'
 
 const store = useStore()
 const emits = defineEmits([EMITS_ITEM_CLICK])
 
 // 删除全部历史记录
 const onDeleteAllClick = () => {
-  confirm('要删除所有历史记录吗？').then(() => {
+  myConfirm('要删除所有历史记录吗？').then(() => {
     store.commit('search/removeAllHistory')
   })
 }

@@ -37,7 +37,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import MyButton from '../MyButton/index.vue'
-defineProps({
+const props = defineProps({
   title: {
     type: String,
     required: true

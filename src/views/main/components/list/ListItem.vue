@@ -38,6 +38,7 @@
           size="small"
           type="info"
           icon="download"
+          @click="onDownload"
         ></my-button>
         <!-- 放大 -->
         <my-button
@@ -63,6 +64,7 @@
 </template>
 <script setup>
 import { randomRGB } from '../../../../utils/colors'
+import { saveAs } from 'file-saver'
 defineProps({
   data: {
     type: Object,
@@ -72,4 +74,9 @@ defineProps({
     type: Number
   }
 })
+
+// 下载功能
+const onDownload = () => {
+  saveAs(props.data.photoDownLink)
+}
 </script>

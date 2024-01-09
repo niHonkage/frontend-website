@@ -14,7 +14,7 @@ const EMITS_ITEM_CLICK = 'itemClick'
 </script>
 <script setup>
 import { getHint } from '@/api/pexels'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { watchDebounced } from '@vueuse/core'
 
 // 接收搜索数据
@@ -30,7 +30,7 @@ const hintData = ref([])
 const getHintData = async () => {
   // 如果搜索栏没有输入不会触发
   if (!props.searchText) return
-  const { result } = getHint(props.searchText)
+  const { result } = await getHint(props.searchText)
   hintData.value = result
 }
 

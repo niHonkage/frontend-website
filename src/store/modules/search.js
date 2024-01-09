@@ -7,7 +7,7 @@ export default {
   mutations: {
     addHistory(state, newHistory) {
       // 不允许出现重复的历史记录
-      const findIndex = historyList.findIndex((history) => {
+      const findIndex = state.historyList.findIndex((history) => {
         return history === newHistory
       })
       // 如果存在，剔除旧数据

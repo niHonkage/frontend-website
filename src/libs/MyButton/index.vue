@@ -76,7 +76,6 @@ const props = defineProps({
   // 按钮风格
   type: {
     type: String,
-    required: true,
     validator(val) {
       // 获取所有按钮风格
       const keys = Object.keys(typeEnum)

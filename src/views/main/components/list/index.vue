@@ -11,7 +11,7 @@
         :data="pexelsList"
         nodeKey="id"
         :column="isMobileTerminal ? 2 : 5"
-        :picturePrereading="flase"
+        :picturePrereading="false"
       >
         <template v-slot="{ item, width }">
           <list-item :data="item" :width="width"></list-item>

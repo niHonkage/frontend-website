@@ -52,7 +52,7 @@ const props = defineProps({
     type: Number,
     default: 20
   },
-  picturePreReading: {
+  picturePrereading: {
     type: Boolean,
     default: true
   }
@@ -130,6 +130,7 @@ const waitImgsComplete = () => {
 
 // 不需要图片预读取时的计算高度
 const useItemHeights = () => {
+  console.log('useItemHeights')
   let itemElements = [...document.getElementsByClassName('waterfall-item')]
   itemElements.forEach((el) => {
     itemHeights.push(el.offsetHeight)
@@ -139,9 +140,8 @@ const useItemHeights = () => {
 
 // 监听数据变化来重新获取itemHeights
 watch(
-  props.data,
+  () => props.data,
   (val) => {
-    console.log(val)
     // 在第一次获取数据时构建高度记录容器
     const resetColumnHeight = val.every((item) => !item._style)
     if (resetColumnHeight) {
@@ -149,7 +149,7 @@ watch(
       useColumnHeightObj()
     }
     nextTick(() => {
-      if (props.picturePreReading) {
+      if (props.picturePrereading) {
         waitImgsComplete()
       } else {
         useItemHeights()
@@ -163,12 +163,15 @@ watch(
 )
 
 const useItemLocation = () => {
+  console.log(' props.data:', props.data)
   props.data.forEach((item, index) => {
     if (item._style) return
     // 生成_style属性
     item._style = {}
     item._style.left = getItemLeft()
     item._style.top = getItemTop()
+
+    console.log('item._style.left:', item._style.left)
     // 指定的列的高度自增
     increasingHeight(index)
   })
@@ -220,8 +223,8 @@ const reset = () => {
 watch(
   () => props.column,
   () => {
-    if (props.picturePreReading) {
-      // 在 picturePreReading 为 true 的前提下，需要首先为列宽滞空，列宽滞空之后，会取消瀑布流渲染
+    if (props.picturePrereading) {
+      // 在 picturePrereading 为 true 的前提下，需要首先为列宽滞空，列宽滞空之后，会取消瀑布流渲染
       columnWidth.value = 0
       // 等待页面渲染后，重新执行计算，否则item高度计算不准确
       nextTick(reset)

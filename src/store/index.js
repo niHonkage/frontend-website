@@ -25,7 +25,8 @@ const store = createStore({
         return category.id === getters.currentCategory.id
       })
     },
-    searchHistory: (state) => state.search.historyList
+    searchHistory: (state) => state.search.historyList,
+    searchText: (state) => state.search.searchText
   },
   modules: {
     category,

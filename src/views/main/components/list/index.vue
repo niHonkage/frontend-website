@@ -50,10 +50,21 @@ const resetQuery = (newQuery) => {
 }
 
 const store = useStore()
+// 监听分类变化
 watch(
   () => store.getters.currentCategory,
   (currentCategory) => {
     resetQuery({ page: 1, categoryId: currentCategory.id })
+  }
+)
+// 监听搜索文本变化
+watch(
+  () => store.getters.searchText,
+  (val) => {
+    resetQuery({
+      page: 1,
+      searchText: val
+    })
   }
 )
 

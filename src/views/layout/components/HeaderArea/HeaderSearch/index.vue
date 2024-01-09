@@ -30,10 +30,14 @@ import { ref } from 'vue'
 import SearchHint from './SearchHint.vue'
 import SearchHistory from './SearchHistory.vue'
 import PopularTheme from './PopularTheme.vue'
+import { useStore } from 'vuex'
 
 const inputValue = ref('')
+const store = useStore()
 // 搜索的回调
 const onSearchHandler = (val) => {
   inputValue.value = val
+  // 触发修改store
+  store.commit('search/changeSearchText', val)
 }
 </script>

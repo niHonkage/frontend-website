@@ -1,3 +1,5 @@
+import { h, render } from 'vue'
+import confirmComponent from './index.vue'
 /**
  *
  * @param {*} title 标题

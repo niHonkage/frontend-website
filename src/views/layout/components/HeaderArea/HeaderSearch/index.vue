@@ -18,6 +18,8 @@
             v-show="!inputValue"
             @itemClick="onSearchHandler"
           ></search-history>
+          <!-- 热门精选 -->
+          <popular-theme v-show="!inputValue"></popular-theme>
         </div>
       </template>
     </search-input>
@@ -27,6 +29,7 @@
 import { ref } from 'vue'
 import SearchHint from './SearchHint.vue'
 import SearchHistory from './SearchHistory.vue'
+import PopularTheme from './PopularTheme.vue'
 
 const inputValue = ref('')
 // 搜索的回调

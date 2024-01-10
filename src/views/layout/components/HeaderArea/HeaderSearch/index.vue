@@ -1,6 +1,7 @@
 <template>
   <div class="w-full">
     <search-input
+      class="guide-search"
       v-model="inputValue"
       @search="onSearchHandler"
       @clear="onSearchHandler"

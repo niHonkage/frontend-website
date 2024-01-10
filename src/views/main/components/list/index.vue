@@ -14,10 +14,18 @@
         :picturePrereading="false"
       >
         <template v-slot="{ item, width }">
-          <list-item :data="item" :width="width"></list-item>
+          <list-item :data="item" :width="width" @click="onToPins"></list-item>
         </template>
       </waterfall-layout>
     </infinite-page>
+    <transition
+      :css="false"
+      @before-enter="onBeforeEnter"
+      @enter="onEnter"
+      @leave="onLeave"
+    >
+      <pins-vue v-if="isVisiblePins" :id="currentPins.id"></pins-vue>
+    </transition>
   </div>
 </template>
 <script setup>
@@ -26,6 +34,9 @@ import { getPexelsList } from '@/api/pexels.js'
 import { ref, watch } from 'vue'
 import { isMobileTerminal } from '@/utils/flexible.js'
 import { useStore } from 'vuex'
+import PinsVue from '../../../pins/component/pins.vue'
+import gsap from 'gsap'
+import { useEventListener } from '@vueuse/core'
 
 let query = {
   page: 1,
@@ -93,4 +104,58 @@ const getPexelsData = async () => {
   isLoading.value = false
 }
 getPexelsData()
+
+// pins组件的状态
+const isVisiblePins = ref(false)
+const currentPins = ref({})
+
+// 点击图片修改浏览器显示的url（新增）
+const onToPins = (item) => {
+  history.pushState(null, null, `/pins/${item.id}`)
+  isVisiblePins.value = true
+  currentPins.value = item
+}
+
+// 利用gsap写transition的动画逻辑
+const onBeforeEnter = (el) => {
+  // 设置进入之前的状态
+  gsap.set(el, {
+    scaleX: 0,
+    scaleY: 0,
+    translateX: currentPins.value.location?.translateX,
+    translateY: currentPins.value.location?.translateY,
+    transformOrigin: '0 0',
+    opacity: 0
+  })
+}
+
+const onEnter = (el, done) => {
+  // 设置完成进入的状态
+  gsap.to(el, {
+    scaleX: 1,
+    scaleY: 1,
+    opacity: 1,
+    duration: 0.3,
+    onComplete: done,
+    translateX: 0,
+    translateY: 0
+  })
+}
+
+const onLeave = (el) => {
+  // 设置退出完成的状态
+  gsap.to(el, {
+    scaleX: 0,
+    scaleY: 0,
+    opacity: 0,
+    translateX: currentPins.value.location?.translateX,
+    translateY: currentPins.value.location?.translateY,
+    duration: 0.3
+  })
+}
+
+// 监听浏览器的后退事件控制pins状态
+useEventListener(window, 'popstate', () => {
+  isVisiblePins.value = false
+})
 </script>

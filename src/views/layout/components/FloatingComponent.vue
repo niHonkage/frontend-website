@@ -55,7 +55,7 @@ onMounted(() => {
     closeBtnText: '取消',
     nextBtnText: '下一个',
     prevBtnText: '上一个',
-    showProgress: 'true'
+    doneBtnText: '完成'
   })
 })
 

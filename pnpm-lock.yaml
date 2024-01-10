@@ -17,6 +17,9 @@ dependencies:
   file-saver:
     specifier: ^2.0.5
     version: 2.0.5
+  gsap:
+    specifier: 3.9.1
+    version: 3.9.1
   vue:
     specifier: ^3.3.11
     version: 3.4.3
@@ -1336,6 +1339,10 @@ packages:
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
     dev: true
+
+  /gsap@3.9.1:
+    resolution: {integrity: sha512-JSGVYoC6da4pIjdF/yxFU6Rz8OojOIDkbooveZlfNg0+JIoFoRruyfWAEi6R/gUeNcuOiTqUIb0gi1nCNrHf8w==}
+    dev: false
 
   /has-ansi@2.0.0:
     resolution: {integrity: sha512-C8vBJ8DwUCx19vhm7urhTuUsr4/IyP6l4VzNQDv+ryHQObW3TTTp9yB68WpYgRe2bbaGuZ/se74IqFeVnMnLZg==}

@@ -4,6 +4,7 @@
   >
     <div
       class="relative w-full rounded cursor-zoom-in group"
+      @click="onToPinsClick"
       :style="{
         backgroundColor: randomRGB()
       }"
@@ -68,8 +69,8 @@
 import { randomRGB } from '../../../../utils/colors'
 import { saveAs } from 'file-saver'
 import { message } from '@/libs'
-import { useFullscreen } from '@vueuse/core'
-import { ref } from 'vue'
+import { useElementBounding, useFullscreen } from '@vueuse/core'
+import { computed, ref } from 'vue'
 const props = defineProps({
   data: {
     type: Object,
@@ -91,4 +92,27 @@ const onDownload = () => {
 
 const imgTarget = ref(null)
 const { enter: onImgFullScreen } = useFullscreen(imgTarget)
+const {
+  x: imgContainerX,
+  y: imgContainerY,
+  width: imgContainerWidth,
+  height: imgContainerHeight
+} = useElementBounding(imgTarget)
+
+// 计算图片居中位置
+const imgContainerCenter = computed(() => {
+  return {
+    translateX: imgContainerX + imgContainerWidth / 2,
+    translateY: imgContainerY + imgContainerHeight / 2
+  }
+})
+
+// 图片点击事件传入图片id和居中位置
+const emits = defineEmits(['click'])
+const onToPinsClick = () => {
+  emits('click', {
+    id: props.data.id,
+    location: imgContainerCenter.value
+  })
+}
 </script>

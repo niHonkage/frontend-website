@@ -43,7 +43,7 @@
     </div>
     <transition name="slide">
       <div
-        class="max-h-[368px] w-full text-base overflow-auto bg-white dark:bg-zinc-800 absolute left-0 top-[56px] z-20 p-2 rounded border border-zinc-200 dark:border-zinc-600 duration-200 hover:shadow-3xl"
+        class="max-h-[368px] w-full text-base overflow-auto bg-white dark:bg-zinc-800 absolute left-0 top-[56px] z-20 p-2 rounded border border-zinc-200 dark:border-zinc-600 duration-200 hover:shadow-3xl scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-900 scrollbar-track-transparent"
         v-if="$slots.dropdown"
         v-show="isFocus"
       >

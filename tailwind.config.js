@@ -32,8 +32,12 @@ export default {
         'error-100': '#ED7456',
         'error-200': '#f3471c',
         'error-300': '#ffffff'
+      },
+      // 让scrollBar支持dark模式
+      variants: {
+        scrollbar: ['dark']
       }
     }
   },
-  plugins: []
+  plugins: [require('tailwind-scrollbar')]
 }

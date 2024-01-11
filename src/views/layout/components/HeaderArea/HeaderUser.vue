@@ -4,6 +4,7 @@
       <!-- 展示区：头像、图标 -->
       <div
         class="guide-user relative flex items-center p-0.5 rounded-sm cursor-pointer duration-200 outline-none hover:bg-zinc-100 dark:hover:bg-zinc-900"
+        v-if="false"
       >
         <img
           v-lazy
@@ -21,6 +22,14 @@
           name="vip"
           class="w-1.5 h-1.5 absolute right-[16px] bottom-0"
         ></svg-icon>
+      </div>
+      <div v-else>
+        <my-button
+          icon="profile"
+          class="guide-user"
+          iconColor="#fff"
+          @click="onToLogin"
+        ></my-button>
       </div>
     </template>
     <!-- 弹出层 -->
@@ -43,6 +52,7 @@
   </popover-card>
 </template>
 <script setup>
+import { useRouter } from 'vue-router'
 // 构建 menu 数据源
 const menuArr = [
   {
@@ -64,4 +74,10 @@ const menuArr = [
     path: ''
   }
 ]
+
+// 注册登陆事件
+const router = useRouter()
+const onToLogin = () => {
+  router.push('/login')
+}
 </script>

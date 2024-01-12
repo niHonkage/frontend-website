@@ -64,13 +64,14 @@
         <div class="pt-1 pb-3 leading-[0px] text-right">
           <a
             class="inline-block text-right text-sm p-1 text-zinc-400 hover:text-main dark:text-zinc-600 dark:hover:text-zinc-400 divide-neutral-400 cursor-pointer"
-            >去注册</a
+            @click="$router.push('/register')"
           >
+            去注册
+          </a>
         </div>
         <my-button
           class="w-full bg-zinc-200 hover:bg-zinc-400 dark:text-zinc-400 dark:hover:text-zinc-200 dark:bg-zinc-900 dark:xl:bg-zinc-800"
           :loading="loading"
-          :isActiveAnim="false"
         >
           登录
         </my-button>

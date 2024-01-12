@@ -29,6 +29,11 @@ service.interceptors.response.use(
     return data
   },
   function (error) {
+    // 处理token超时
+    if (error.response && error.response.data && error.response.data.code) {
+      // TODO：token超时操作
+      store.dispatch('user/logout')
+    }
     return Promise.reject(error)
   }
 )

@@ -37,7 +37,7 @@
       <vee-form @submit="onSubmit">
         <vee-field
           type="text"
-          class="dark:bg-zinc-800 xl:dark:bg-zinc-900 outline-none border-b-zinc-400 border-b-[1px] px-1 pb-1 text-base focus:border-b-main focus:dark:border-b-zinc-200 w-full"
+          class="dark:bg-zinc-800 xl:dark:bg-zinc-900 outline-none dark:text-white border-b-zinc-400 border-b-[1px] px-1 pb-1 text-base focus:border-b-main focus:dark:border-b-zinc-200 w-full"
           placeholder="用户名"
           name="username"
           autocomplete="on"
@@ -49,7 +49,7 @@
         />
         <vee-field
           type="password"
-          class="dark:bg-zinc-800 xl:dark:bg-zinc-900 text-base px-1 pb-1 mt-4 outline-none border-b-zinc-400 focus:border-b-main border-b-[1px] focus:dark:border-b-zinc-200 w-full"
+          class="dark:bg-zinc-800 xl:dark:bg-zinc-900 dark:text-white text-base px-1 pb-1 mt-4 outline-none border-b-zinc-400 focus:border-b-main border-b-[1px] focus:dark:border-b-zinc-200 w-full"
           placeholder="密码"
           name="password"
           autocomplete="on"
@@ -77,7 +77,11 @@
         </div>
       </vee-form>
     </div>
-    <slider-captcha></slider-captcha>
+    <slider-captcha
+      v-if="isSliderVisible"
+      @close="onCloseHandler"
+      @success="onSuccessHandler"
+    ></slider-captcha>
   </div>
 </template>
 
@@ -88,6 +92,7 @@ import {
   ErrorMessage as VeeErrorMessage
 } from 'vee-validate'
 import SliderCaptcha from './SliderCaptcha.vue'
+import { ref } from 'vue'
 
 // 校验规则
 const validateUsername = (value) => {
@@ -120,6 +125,19 @@ const validatePassword = (value) => {
 }
 
 const onSubmit = () => {
-  console.log('submit')
+  isSliderVisible.value = true
+}
+
+// 控制验证模块显示
+const isSliderVisible = ref(false)
+
+const onCloseHandler = () => {
+  isSliderVisible.value = false
+}
+
+const onSuccessHandler = () => {
+  isSliderVisible.value = false
+  // 登陆操作
+  console.log('登陆成功')
 }
 </script>

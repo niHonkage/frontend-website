@@ -22,8 +22,50 @@
     <div id="captcha"></div>
   </div>
 </template>
+<script>
+const EMITS_CLOSE = 'close'
+const EMITS_SUCCESS = 'success'
+</script>
 <script setup>
-const onReset = () => {}
+import '@/vendor/SliderCaptcha/longbow.slidercaptcha.min.js'
+import '@/vendor/SliderCaptcha/slidercaptcha.min.css'
+import { getCaptcha } from '@/api/sys'
+import { onMounted } from 'vue'
 
-const onClose = () => {}
+const emits = defineEmits([EMITS_CLOSE, EMITS_SUCCESS])
+
+// 生成captcha实例，把用户的拼图结果返回到服务端进行判定
+let captcha = null
+onMounted(() => {
+  // captcha包提供的实例化方法
+  captcha = sliderCaptcha({
+    // 渲染位置
+    id: 'captcha',
+    // 拼图成功后的回调
+    async onSuccess(arr) {
+      const result = await getCaptcha({
+        behavior: arr
+      })
+      if (result) {
+        emits(EMITS_SUCCESS)
+      }
+    },
+    // 拼图失败的回调
+    onFail() {
+      emits(EMITS_CLOSE)
+    },
+    // 默认的验证方法，此处选择的是等待用户拼图成功后进行验证
+    verify() {
+      return true
+    }
+  })
+})
+
+const onReset = () => {
+  captcha.reset()
+}
+
+const onClose = () => {
+  emits(EMITS_CLOSE)
+}
 </script>

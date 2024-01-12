@@ -35,7 +35,7 @@
       >
         注册账号
       </h3>
-      <vee-form>
+      <vee-form @submit="onRegister">
         <vee-field
           name="username"
           type="text"
@@ -43,6 +43,7 @@
           placeholder="用户名"
           autocomplete="on"
           :rules="validateUsername"
+          v-model="formValue.username"
         ></vee-field>
         <vee-error-message
           class="text-sm text-red-600 block text-left mt-0.5"
@@ -56,6 +57,7 @@
           placeholder="密码"
           autocomplete="on"
           :rules="validatePassword"
+          v-model="formValue.password"
         ></vee-field>
         <vee-error-message
           name="password"
@@ -69,6 +71,7 @@
           placeholder="确认密码"
           autocomplete="on"
           rules="validateConfirmPassword:@password"
+          v-model="formValue.confirmPassword"
         ></vee-field>
         <vee-error-message
           name="confirmPassword"
@@ -88,7 +91,8 @@
           注册即同意《慕课网注册协议》
         </a>
         <my-button
-          class="mt-3 w-full bg-red-500 hover:bg-red-600 text-base tracking-widest py-1 text-white dark:bg-zinc-900 xl:dark:bg-zinc-800"
+          class="mt-3 w-full bg-red-500 hover:bg-red-600 text-base tracking-widest py-1 text-white xl:dark:hover:bg-zinc-600 xl:dark:bg-zinc-800"
+          :loading="loading"
         >
           立即注册
         </my-button>
@@ -103,6 +107,10 @@ import {
   ErrorMessage as VeeErrorMessage,
   defineRule
 } from 'vee-validate'
+import { LOGIN_TYPE_USERNAME } from '@/constants'
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 const validateUsername = (val) => {
   if (!val) {
@@ -136,4 +144,36 @@ const validateConfirmPassword = (val, password) => {
 }
 // 插入规则
 defineRule('validateConfirmPassword', validateConfirmPassword)
+
+// 绑定表单数据
+const formValue = ref({
+  username: '',
+  password: '',
+  confirmPassword: ''
+})
+
+const loading = ref(false)
+
+// 注册
+const store = useStore()
+const router = useRouter()
+const onRegister = async () => {
+  loading.value = true
+  try {
+    const payload = {
+      username: formValue.value.username,
+      password: formValue.value.password
+    }
+    // 触发注册
+    await store.dispatch('user/register', payload)
+    // 触发登录
+    await store.dispatch('user/login', {
+      ...payload,
+      loginType: LOGIN_TYPE_USERNAME
+    })
+  } finally {
+    loading.value = false
+  }
+  router.push('/')
+}
 </script>

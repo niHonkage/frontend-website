@@ -1,4 +1,4 @@
-import { loginUser, getProfile } from '@/api/sys'
+import { loginUser, getProfile, registerUser } from '@/api/sys'
 import md5 from 'md5'
 import { message } from '@/libs'
 
@@ -47,6 +47,13 @@ export default {
       context.commit('setToken', '')
       context.commit('setUserInfo', {})
       location.reload()
+    },
+    async register(context, payload) {
+      const { password } = payload
+      return await registerUser({
+        ...payload,
+        password: password ? md5(password) : ''
+      })
     }
   }
 }

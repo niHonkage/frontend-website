@@ -28,7 +28,8 @@ const store = createStore({
     },
     searchHistory: (state) => state.search.historyList,
     searchText: (state) => state.search.searchText,
-    token: (state) => state.user.token
+    token: (state) => state.user.token,
+    userInfo: (state) => state.user.userInfo
   },
   modules: {
     category,

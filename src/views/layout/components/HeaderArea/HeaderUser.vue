@@ -39,6 +39,7 @@
         v-for="item in menuArr"
         :key="item.id"
         class="flex items-center p-1 cursor-pointer rounded hover:bg-zinc-100/60 dark:hover:bg-zinc-800"
+        @click="onItemClick(item)"
       >
         <svg-icon
           :name="item.icon"
@@ -54,6 +55,11 @@
 </template>
 <script setup>
 import { useRouter } from 'vue-router'
+import { myConfirm } from '@/libs'
+import { useStore } from 'vuex'
+
+const store = useStore()
+
 // 构建 menu 数据源
 const menuArr = [
   {
@@ -80,5 +86,17 @@ const menuArr = [
 const router = useRouter()
 const onToLogin = () => {
   router.push('/login')
+}
+
+// 注册menuItem 点击事件
+const onItemClick = (item) => {
+  // 有 path 则跳转，没有就是退出登录
+  if (item.path) {
+    router.push(path)
+    return
+  }
+  myConfirm('您确认要退出吗？').then(() => {
+    store.dispatch('user/logout')
+  })
 }
 </script>

@@ -46,6 +46,7 @@ const styles = {
 </script>
 <script setup>
 import { onMounted, ref } from 'vue'
+import SvgIcon from '@/libs/SvgIcon/index.vue'
 const props = defineProps({
   type: {
     type: String,

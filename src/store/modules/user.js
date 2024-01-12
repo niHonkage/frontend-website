@@ -42,6 +42,11 @@ export default {
         }`,
         6000
       )
+    },
+    logout(context) {
+      context.commit('setToken', '')
+      context.commit('setUserInfo', {})
+      location.reload()
     }
   }
 }

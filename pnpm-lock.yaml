@@ -20,6 +20,9 @@ dependencies:
   gsap:
     specifier: 3.9.1
     version: 3.9.1
+  vee-validate:
+    specifier: 4.5.10
+    version: 4.5.10(vue@3.4.3)
   vue:
     specifier: ^3.3.11
     version: 3.4.3
@@ -2507,6 +2510,15 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
     dev: true
+
+  /vee-validate@4.5.10(vue@3.4.3):
+    resolution: {integrity: sha512-7dZE0PZTNY3Ztp6Gz8iw+QS7Fz59vU1qkD0rBJkldkf9Faw2lFjWgE0tiCist5RQkLgt7/HaVbojzb/SCdutfA==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@vue/devtools-api': 6.5.1
+      vue: 3.4.3
+    dev: false
 
   /vite-plugin-svg-icons@2.0.1(vite@5.0.10):
     resolution: {integrity: sha512-6ktD+DhV6Rz3VtedYvBKKVA2eXF+sAQVaKkKLDSqGUfnhqXl3bj5PPkVTl3VexfTuZy66PmINi8Q6eFnVfRUmA==}

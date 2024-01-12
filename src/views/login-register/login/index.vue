@@ -34,20 +34,30 @@
       >
         账号登录
       </h3>
-      <form>
-        <input
+      <vee-form @submit="onSubmit">
+        <vee-field
           type="text"
           class="dark:bg-zinc-800 xl:dark:bg-zinc-900 outline-none border-b-zinc-400 border-b-[1px] px-1 pb-1 text-base focus:border-b-main focus:dark:border-b-zinc-200 w-full"
           placeholder="用户名"
           name="username"
           autocomplete="on"
+          :rules="validateUsername"
         />
-        <input
+        <vee-error-message
+          class="text-sm text-red-600 mt-0.5 text-left block"
+          name="username"
+        />
+        <vee-field
           type="password"
           class="dark:bg-zinc-800 xl:dark:bg-zinc-900 text-base px-1 pb-1 mt-4 outline-none border-b-zinc-400 focus:border-b-main border-b-[1px] focus:dark:border-b-zinc-200 w-full"
           placeholder="密码"
           name="password"
           autocomplete="on"
+          :rules="validatePassword"
+        />
+        <vee-error-message
+          class="text-sm text-red-600 mt-0.5 text-left block"
+          name="password"
         />
         <div class="pt-1 pb-3 leading-[0px] text-right">
           <a
@@ -65,8 +75,51 @@
           <svg-icon name="qq" class="w-4 h-4 cursor-pointer"></svg-icon>
           <svg-icon name="wexin" class="w-4 h-4 cursor-pointer"></svg-icon>
         </div>
-      </form>
+      </vee-form>
     </div>
+    <slider-captcha></slider-captcha>
   </div>
 </template>
-<script setup></script>
+
+<script setup>
+import {
+  Form as VeeForm,
+  Field as VeeField,
+  ErrorMessage as VeeErrorMessage
+} from 'vee-validate'
+import SliderCaptcha from './SliderCaptcha.vue'
+
+// 校验规则
+const validateUsername = (value) => {
+  // 用户名是必填项
+  if (!value) {
+    return '用户名是必填项'
+  }
+
+  // 用户名的长度在 3-12 位之间
+  if (value.length < 3 && value.length > 12) {
+    return '用户名的长度在 3-12 位之间'
+  }
+
+  // 通过检验
+  return true
+}
+const validatePassword = (value) => {
+  // 密码是必填项
+  if (!value) {
+    return '密码是必填项'
+  }
+
+  // 密码的长度在 6-12 位之间
+  if (value.length < 6 && value.length > 12) {
+    return '用户名的长度在 6-12 位之间'
+  }
+
+  // 通过检验
+  return true
+}
+
+const onSubmit = () => {
+  console.log('submit')
+}
+</script>

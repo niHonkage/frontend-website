@@ -42,6 +42,7 @@
           name="username"
           autocomplete="on"
           :rules="validateUsername"
+          v-model="formValue.username"
         />
         <vee-error-message
           class="text-sm text-red-600 mt-0.5 text-left block"
@@ -54,6 +55,7 @@
           name="password"
           autocomplete="on"
           :rules="validatePassword"
+          v-model="formValue.password"
         />
         <vee-error-message
           class="text-sm text-red-600 mt-0.5 text-left block"
@@ -67,6 +69,8 @@
         </div>
         <my-button
           class="w-full bg-zinc-200 hover:bg-zinc-400 dark:text-zinc-400 dark:hover:text-zinc-200 dark:bg-zinc-900 dark:xl:bg-zinc-800"
+          :loading="loading"
+          :isActiveAnim="false"
         >
           登录
         </my-button>
@@ -93,6 +97,9 @@ import {
 } from 'vee-validate'
 import SliderCaptcha from './SliderCaptcha.vue'
 import { ref } from 'vue'
+import { LOGIN_TYPE_USERNAME } from '@/constants'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 // 校验规则
 const validateUsername = (value) => {
@@ -138,6 +145,29 @@ const onCloseHandler = () => {
 const onSuccessHandler = () => {
   isSliderVisible.value = false
   // 登陆操作
-  console.log('登陆成功')
+  login()
+}
+
+// 登陆动作
+const loading = ref(false)
+const store = useStore()
+const router = useRouter()
+const formValue = ref({
+  username: '',
+  password: ''
+})
+
+const login = async () => {
+  loading.value = true
+  try {
+    // 传递 表单数据 和 登录方式
+    await store.dispatch('user/login', {
+      ...formValue.value,
+      loginType: LOGIN_TYPE_USERNAME
+    })
+  } finally {
+    loading.value = false
+  }
+  router.push('/')
 }
 </script>

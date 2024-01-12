@@ -4,12 +4,13 @@ import category from './modules/category'
 import app from './modules/app.js'
 import VuexPersistence from 'vuex-persist'
 import search from './modules/search.js'
+import user from './modules/user.js'
 
 // 配置vuex-persist
 const vuexLocal = new VuexPersistence({
   key: 'local',
   storage: window.localStorage,
-  modules: ['category', 'theme', 'search']
+  modules: ['category', 'theme', 'search', 'user']
 })
 const store = createStore({
   state() {
@@ -26,13 +27,15 @@ const store = createStore({
       })
     },
     searchHistory: (state) => state.search.historyList,
-    searchText: (state) => state.search.searchText
+    searchText: (state) => state.search.searchText,
+    token: (state) => state.user.token
   },
   modules: {
     category,
     theme,
     app,
-    search
+    search,
+    user
   },
   plugins: [vuexLocal.plugin]
 })

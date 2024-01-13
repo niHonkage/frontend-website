@@ -92,7 +92,7 @@ const onToLogin = () => {
 const onItemClick = (item) => {
   // 有 path 则跳转，没有就是退出登录
   if (item.path) {
-    router.push(path)
+    router.push(item.path)
     return
   }
   myConfirm('您确认要退出吗？').then(() => {

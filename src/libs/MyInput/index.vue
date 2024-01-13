@@ -3,14 +3,14 @@
     <input
       v-if="type === 'text'"
       :maxlength="max"
-      class="rounded-sm text-sm dark:text-zinc-400 w-full border-[1px] border-zinc-400 duration-300 focus:border-blue-500 dark:border-zinc-600 dark:hover:border-white px-1 py-0.5 outline-none"
+      class="rounded-sm dark:bg-zinc-800 text-sm dark:text-zinc-400 w-full border-[1px] border-zinc-400 duration-300 focus:border-blue-500 dark:focus:border-zinc-200 dark:border-zinc-600 dark:hover:border-white px-1 py-0.5 outline-none"
       type="text"
       v-model="text"
     />
     <textarea
       v-if="type === 'textarea'"
       v-model="text"
-      class="dark:text-zinc-400 text-sm duration-300 rounded-sm outline-none border-[1px] border-zinc-400 focus:border-blue-500 dark:border-zinc-600 dark:hover:border-white px-1 py-0.5 w-full"
+      class="dark:text-zinc-400 dark:bg-zinc-800 text-sm duration-300 rounded-sm outline-none border-[1px] border-zinc-400 focus:border-blue-500 dark:focus:border-zinc-200 dark:border-zinc-600 dark:hover:border-white px-1 py-0.5 w-full"
       rows="5"
       :maxlength="max"
     ></textarea>
@@ -18,7 +18,7 @@
       v-if="max"
       class="absolute right-1 bottom-0.5 dark:text-zinc-400 text-xs"
       :class="{ 'text-red-700': currentLength === parseInt(max) }"
-      >{{ text }} / {{ max }}</span
+      >{{ text.length }} / {{ max }}</span
     >
   </div>
 </template>

@@ -1,32 +1,42 @@
 <template>
-  <div>
+  <div v-if="isVisible">
     <!-- 蒙版 -->
     <transition name="fade">
       <div
-        v-if="isVisible"
         class="w-screen h-screen z-40 bg-[rgba(0,0,0,0.8)] fixed top-0 left-0"
         @click="close"
       ></div>
     </transition>
     <transition name="up">
       <div
-        class="max-w-[80%] max-h-[80%] overflow-auto fixed top-10 left-[50%] translate-x-[-50%] px-2 py-1.5 rounded-sm border border-zinc-400 bg-white dark:bg-zinc-800 xl:min-w-[35%]"
+        class="max-w-[80%] max-h-[80%] overflow-auto fixed top-10 left-[50%] translate-x-[-50%] px-2 py-1.5 rounded-sm border border-zinc-400 bg-white dark:bg-zinc-800 xl:min-w-[35%] z-50"
       >
         <!-- 标题 -->
         <div v-if="title" class="font-bold text-lg dark:text-zinc-200 mb-2">
           {{ title }}
         </div>
         <!-- 内容 -->
-        <div class="dark:text-zinc-200 text-base mb-2">
+        <div class="dark:text-zinc-200 text-base mb-2 mx-auto max-w-[50%]">
           <slot></slot>
         </div>
         <!-- 按钮 -->
-        <my-button class="mr-2" type="info" @click="onConfirmHandler">
-          {{ confirmText }}
-        </my-button>
-        <my-button type="primary" @click="onCancelHandler">
-          {{ cancelText }}
-        </my-button>
+        <div class="flex justify-around">
+          <my-button
+            class="mr-2"
+            type="info"
+            v-if="confirmHandler"
+            @click="onConfirmHandler"
+          >
+            {{ confirmText }}
+          </my-button>
+          <my-button
+            type="primary"
+            v-if="cancelHandler"
+            @click="onCancelHandler"
+          >
+            {{ cancelText }}
+          </my-button>
+        </div>
       </div>
     </transition>
   </div>

@@ -6,21 +6,21 @@
     <m-navbar v-if="isMobileTerminal" @clickLeft="onPop" @clickRight="onPop">
       {{ pexelData.title }}
       <template #right>
-        <m-svg-icon
+        <svg-icon
           name="share"
           class="w-3 h-3"
           fillClass="fill-zinc-900 dark:fill-zinc-200"
-        ></m-svg-icon>
+        ></svg-icon>
       </template>
     </m-navbar>
     <!-- pc 端下展示关闭图标 -->
-    <m-svg-icon
+    <svg-icon
       v-else
       name="close"
       class="w-3 h-3 ml-1 p-0.5 cursor-pointer duration-200 rounded-sm hover:bg-zinc-100 absolute right-2 top-2"
       fillClass="fill-zinc-400"
       @click="onPop"
-    ></m-svg-icon>
+    ></svg-icon>
 
     <div class="xl:w-[80%] xl:h-full xl:mx-auto xl:rounded-lg xl:flex">
       <img
@@ -31,11 +31,11 @@
         class="xl:w-2/5 xl:h-full xl:bg-white xl:dark:bg-zinc-900 xl:rounded-tr-lg xl:rounded-br-lg xl:p-3"
       >
         <div v-if="!isMobileTerminal" class="flex justify-between mb-2">
-          <m-svg-icon
+          <svg-icon
             name="share"
             class="w-4 h-4 p-1 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-800 duration-300 rounded"
             fillClass="fill-zinc-900 dark:fill-zinc-200"
-          ></m-svg-icon>
+          ></svg-icon>
 
           <m-button
             class=""

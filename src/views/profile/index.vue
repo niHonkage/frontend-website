@@ -136,6 +136,28 @@
         </my-button>
       </div>
     </div>
+    <my-dialog
+      v-if="!isMobileTerminal"
+      title="更改头像"
+      v-model="isDialogVisible"
+    >
+      <change-avatar
+        :blob="currentImgURL"
+        @close="isDialogVisible = false"
+      ></change-avatar>
+    </my-dialog>
+    <!-- 移动端：在展示时指定高度 -->
+    <popup-list
+      v-else
+      title="更改头像"
+      v-model="isDialogVisible"
+      :class="{ 'h-screen': isDialogVisible }"
+    >
+      <change-avatar
+        :blob="currentImgURL"
+        @close="isDialogVisible = false"
+      ></change-avatar>
+    </popup-list>
   </div>
 </template>
 <script setup>
@@ -145,6 +167,7 @@ import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import { putProfile } from '@/api/sys.js'
+import ChangeAvatar from './components/ChangeAvatar.vue'
 
 const store = useStore()
 const router = useRouter()
@@ -158,7 +181,16 @@ const onAvatarClick = () => {
 }
 
 // 头像选择后的回调
-const onSelectHandler = () => {}
+const isDialogVisible = ref(false)
+const currentImgURL = ref('')
+
+const onSelectHandler = () => {
+  // 获取选中的文件
+  const imgFile = inputFileRef.value.files[0]
+  // 通过URL.createObjectURL方法把Blob转换成一段可以被读取的url
+  currentImgURL.value = URL.createObjectURL(imgFile)
+  isDialogVisible.value = true
+}
 
 // 移动端后退处理
 const onNavBarLeftClick = () => {

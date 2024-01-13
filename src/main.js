@@ -9,6 +9,7 @@ import 'virtual:svg-icons-register'
 import store from './store'
 import useTheme from '@/utils/theme.js'
 import MyDirective from '@/directives'
+import './permission.js'
 useTheme()
 useRem()
 

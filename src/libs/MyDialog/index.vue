@@ -16,7 +16,7 @@
           {{ title }}
         </div>
         <!-- 内容 -->
-        <div class="dark:text-zinc-200 text-base mb-2 mx-auto max-w-[50%]">
+        <div class="dark:text-zinc-200 text-base mb-2 mx-auto w-[75%]">
           <slot></slot>
         </div>
         <!-- 按钮 -->

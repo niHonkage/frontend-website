@@ -69,7 +69,7 @@
           <my-input
             type="text"
             max="20"
-            v-model="$store.getters.userInfo.nickname"
+            v-model="userInfo.nickname"
             class="w-full"
           ></my-input>
         </div>
@@ -80,7 +80,7 @@
           </span>
           <my-input
             type="text"
-            v-model="$store.getters.userInfo.title"
+            v-model="userInfo.title"
             class="w-full"
           ></my-input>
         </div>
@@ -91,7 +91,7 @@
           </span>
           <my-input
             type="text"
-            v-model="$store.getters.userInfo.company"
+            v-model="userInfo.company"
             class="w-full"
           ></my-input>
         </div>
@@ -102,7 +102,7 @@
           </span>
           <my-input
             type="text"
-            v-model="$store.getters.userInfo.homePage"
+            v-model="userInfo.homePage"
             class="w-full"
           ></my-input>
         </div>
@@ -123,6 +123,7 @@
         <my-button
           class="w-full mt-2 mb-4 bg-red-500 hover:bg-red-600 text-white dark:bg-zinc-800 dark:hover:bg-zinc-600 dark:text-zinc-200 xl:w-[160px] xl:mx-auto"
           @click="onSaveClick"
+          :loading="loading"
         >
           保存修改
         </my-button>
@@ -139,10 +140,11 @@
 </template>
 <script setup>
 import { isMobileTerminal } from '@/utils/flexible'
-import { myConfirm } from '@/libs'
+import { myConfirm, message } from '@/libs'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
+import { putProfile } from '@/api/sys.js'
 
 const store = useStore()
 const router = useRouter()
@@ -168,5 +170,27 @@ const onLogoutClick = () => {
   myConfirm('您确定要退出吗？').then(() => {
     store.dispatch('user/logout')
   })
+}
+
+// 双向绑定
+/* const changeUserInfo = (key, event) => {
+  store.commit('user/setUserInfo', {
+    ...store.getters.userInfo,
+    [key]: event
+  })
+} */
+
+// 点击保存修改
+const loading = ref(false)
+
+const userInfo = ref(store.getters.userInfo)
+
+const onSaveClick = async () => {
+  loading.value = true
+  await putProfile(userInfo.value)
+  message('success', '用户信息修改成功')
+  // 等待修改数据上传完成再修改本地数据
+  store.commit('user/setUserInfo', userInfo.value)
+  loading.value = false
 }
 </script>

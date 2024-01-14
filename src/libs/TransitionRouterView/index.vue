@@ -1,8 +1,15 @@
 <template>
   <router-view v-slot="{ Component }">
-    <transition :name="transitionName">
+    <transition
+      :name="transitionName"
+      @after-leave="onAfterLeave"
+      @before-enter="onBeforeEnter"
+    >
       <keep-alive>
-        <component :is="Component"></component>
+        <component
+          :is="Component"
+          :class="{ 'fixed top-0 left-0 w-screen z-50': isAnimation }"
+        ></component>
       </keep-alive>
     </transition>
   </router-view>
@@ -46,6 +53,15 @@ const store = useStore()
 router.beforeEach((to, from) => {
   transitionName.value = store.getters.routerType
 })
+
+// 在进入前和退出后的钩子内控制transition脱离常规文档流(绝对定位)和回归文档流的样式
+const isAnimation = ref(false)
+const onBeforeEnter = () => {
+  isAnimation.value = true
+}
+const onAfterLeave = () => {
+  isAnimation.value = false
+}
 </script>
 <style lang="scss" scoped>
 // push页面时：新页面的进入动画

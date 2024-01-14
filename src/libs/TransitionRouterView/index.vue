@@ -5,7 +5,7 @@
       @after-leave="onAfterLeave"
       @before-enter="onBeforeEnter"
     >
-      <keep-alive>
+      <keep-alive :include="virtualTaskStack">
         <component
           :is="Component"
           :class="{ 'fixed top-0 left-0 w-screen z-50': isAnimation }"
@@ -25,19 +25,7 @@ const typeEnum = [NONE, ROUTER_TYPE_PUSH, ROUTER_TYPE_BACK]
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { ref } from 'vue'
-defineProps({
-  // 通过routerType来判断当前的路由跳转是push还是back，transition根据不同的name来切换不同的动画效果
-  routerType: {
-    type: String,
-    validator(val) {
-      const result = typeEnum.include(val)
-      // 类型应该是typeNum中定义的类型
-      if (!result) {
-        throw new Error(`routerType应该是${typeEnum.join('、')}中的一种`)
-      }
-      return true
-    }
-  },
+const props = defineProps({
   // 首页的组件名称，对应任务栈中的第一个栈
   mainComponentName: {
     type: String,
@@ -47,11 +35,29 @@ defineProps({
 
 const transitionName = ref('none')
 
+// 使用数组模拟虚拟的任务栈
+const virtualTaskStack = ref([props.mainComponentName])
+// 清空任务栈
+const clearStack = () => {
+  virtualTaskStack.value = [props.mainComponentName]
+}
+
 // 每一次的路由跳转之前手动更改routerType，通过路由前置守卫就可以拿到每次跳转的类型
 const router = useRouter()
 const store = useStore()
+const routerType = ref(store.getters.routerType)
 router.beforeEach((to, from) => {
-  transitionName.value = store.getters.routerType
+  transitionName.value = routerType.value
+  // 判断routerType决定当前操作是push还是pop
+  if (routerType.value === 'push') {
+    virtualTaskStack.value.push(to.name)
+  } else if (routerType.value === 'back') {
+    virtualTaskStack.value.pop()
+  }
+  // 如果回到首页清空所有任务栈
+  if (to.name === props.mainComponentName) {
+    clearStack()
+  }
 })
 
 // 在进入前和退出后的钩子内控制transition脱离常规文档流(绝对定位)和回归文档流的样式

@@ -3,7 +3,7 @@
     class="fixed left-0 top-0 w-screen h-screen z-20 backdrop-blur-3xl bg-transparent pb-2 overflow-y-auto xl:p-2"
   >
     <!-- 移动端下展示 navbar -->
-    <m-navbar v-if="isMobileTerminal" @clickLeft="onPop" @clickRight="onPop">
+    <nav-bar v-if="isMobileTerminal" @clickLeft="onPop" @clickRight="onPop">
       {{ pexelData.title }}
       <template #right>
         <svg-icon
@@ -12,7 +12,7 @@
           fillClass="fill-zinc-900 dark:fill-zinc-200"
         ></svg-icon>
       </template>
-    </m-navbar>
+    </nav-bar>
     <!-- pc 端下展示关闭图标 -->
     <svg-icon
       v-else
@@ -37,7 +37,7 @@
             fillClass="fill-zinc-900 dark:fill-zinc-200"
           ></svg-icon>
 
-          <m-button
+          <my-button
             class=""
             type="info"
             icon="heart"
@@ -71,6 +71,7 @@ import { ref } from 'vue'
 import { getPexelsFromId } from '@/api/pexels'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { isMobileTerminal } from '@/utils/flexible.js'
 
 const props = defineProps({
   id: {

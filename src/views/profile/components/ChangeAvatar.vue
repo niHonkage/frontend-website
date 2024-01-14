@@ -69,7 +69,7 @@ const putObjectToOSS = async (file) => {
     /* 因为当前凭证只具备 images 文件夹下的访问权限，所以图片需要上传到 images/xxx.xx 。
     否则你将得到一个 
     AccessDeniedError: You have no right to access this object because of bucket acl. 的bug */
-    const fileTypeArr = file.type.spilt('/')
+    const fileTypeArr = file.type.split('/')
     const fileName = `${store.getters.userInfo.username}/${Date.now()}.${
       fileTypeArr[fileTypeArr.length - 1]
     }`
@@ -83,35 +83,12 @@ const putObjectToOSS = async (file) => {
   }
 }
 
-// 使用cropperjs
-// 移动端的配置
-const mobileOptions = {
-  // 将裁剪框限制在画布大小
-  viewMode: 1,
-  // 移动画布，剪裁框不动
-  moveMode: 'move',
-  // 裁剪框比例1:1 不可变
-  aspectRatio: 1,
-  // 裁剪框不可移动
-  cropBoxMovable: false,
-  // 裁剪框大小不可调整
-  cropBoxResizable: false
-}
-// PC端配置
-const PCOptions = {
-  // 固定裁剪比例
-  aspectRatio: 1
-}
-
 let cropper = null
 const imgRef = ref(null)
 // 初始化cropper
 onMounted(() => {
   // 接收两个参数，第一个DOM对象，第二个配置对象
-  cropper = new Cropper(
-    imgRef.value,
-    isMobileTerminal ? mobileOptions : PCOptions
-  )
+  cropper = new Cropper(imgRef.value)
 })
 // 处理点击事件
 const loading = ref(false)

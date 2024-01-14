@@ -4,15 +4,15 @@ import { getSts } from '@/api/sys'
 
 // 生成OSS实例
 export const getOSSClient = async () => {
-  const res = getSts()
+  const res = await getSts()
   return new OSS({
     // bucket所在地域，例子：oss-cn-beijing
     region: REGION,
     // 从sts服务中返回的临时访问密钥
-    accessKeyId: res.Credential.AccessKeyId,
-    accessKeySecret: res.Credential.AccessKeySecret,
+    accessKeyId: res.Credentials.AccessKeyId,
+    accessKeySecret: res.Credentials.AccessKeySecret,
     // sts服务中获取的安全令牌
-    stsToken: res.Credential.SecurityToken,
+    stsToken: res.Credentials.SecurityToken,
     // bucket名称
     bucket: BUCKET,
     // 刷新 token，在 token 过期后自动调用（但是并不生效，可能会在后续的版本中修复）

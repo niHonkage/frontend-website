@@ -37,6 +37,11 @@
     </trigger-menu>
   </div>
 </template>
+<script>
+export default {
+  name: 'home'
+}
+</script>
 
 <script setup>
 import NavigationVue from './components/navigation/index.vue'
@@ -45,7 +50,7 @@ import { isMobileTerminal } from '@/utils/flexible.js'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { useScroll } from '@vueuse/core'
-import { onActivated } from 'vue'
+import { onActivated, ref } from 'vue'
 
 const store = useStore()
 const router = useRouter()

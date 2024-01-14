@@ -18,8 +18,6 @@
 const NONE = 'none'
 const ROUTER_TYPE_PUSH = 'push'
 const ROUTER_TYPE_BACK = 'back'
-
-const typeEnum = [NONE, ROUTER_TYPE_PUSH, ROUTER_TYPE_BACK]
 </script>
 <script setup>
 import { useRouter } from 'vue-router'
@@ -45,18 +43,19 @@ const clearStack = () => {
 // 每一次的路由跳转之前手动更改routerType，通过路由前置守卫就可以拿到每次跳转的类型
 const router = useRouter()
 const store = useStore()
-const routerType = ref(store.getters.routerType)
 router.beforeEach((to, from) => {
-  transitionName.value = routerType.value
-  // 判断routerType决定当前操作是push还是pop
-  if (routerType.value === 'push') {
-    virtualTaskStack.value.push(to.name)
-  } else if (routerType.value === 'back') {
-    virtualTaskStack.value.pop()
-  }
+  transitionName.value = store.getters.routerType
   // 如果回到首页清空所有任务栈
   if (to.name === props.mainComponentName) {
     clearStack()
+    return
+  }
+
+  // 判断routerType决定当前操作是push还是pop
+  if (store.getters.routerType === ROUTER_TYPE_PUSH) {
+    virtualTaskStack.value.push(to.name)
+  } else if (store.getters.routerType === ROUTER_TYPE_BACK) {
+    virtualTaskStack.value.pop()
   }
 })
 

@@ -64,7 +64,7 @@
         <div class="pt-1 pb-3 leading-[0px] text-right">
           <a
             class="inline-block text-right text-sm p-1 text-zinc-400 hover:text-main dark:text-zinc-600 dark:hover:text-zinc-400 divide-neutral-400 cursor-pointer"
-            @click="$router.push('/register')"
+            @click="onToRegister"
           >
             去注册
           </a>
@@ -170,5 +170,10 @@ const login = async () => {
     loading.value = false
   }
   router.push('/')
+}
+
+const onToRegister = () => {
+  store.commit('app/changeRouterType', 'push')
+  router.push('/register')
 }
 </script>

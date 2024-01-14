@@ -59,6 +59,7 @@ import { myConfirm } from '@/libs'
 import { useStore } from 'vuex'
 
 const store = useStore()
+const router = useRouter()
 
 // 构建 menu 数据源
 const menuArr = [
@@ -83,8 +84,8 @@ const menuArr = [
 ]
 
 // 注册登陆事件
-const router = useRouter()
 const onToLogin = () => {
+  store.commit('app/changeRouterType', 'push')
   router.push('/login')
 }
 
@@ -92,6 +93,7 @@ const onToLogin = () => {
 const onItemClick = (item) => {
   // 有 path 则跳转，没有就是退出登录
   if (item.path) {
+    store.commit('app/changeRouterType', 'push')
     router.push(item.path)
     return
   }

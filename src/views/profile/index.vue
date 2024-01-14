@@ -194,6 +194,7 @@ const onSelectHandler = () => {
 
 // 移动端后退处理
 const onNavBarLeftClick = () => {
+  store.commit('app/changeRouterType', 'back')
   router.back()
 }
 

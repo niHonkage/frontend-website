@@ -70,6 +70,7 @@
 import { ref } from 'vue'
 import { getPexelsFromId } from '@/api/pexels'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 const props = defineProps({
   id: {
@@ -92,7 +93,9 @@ getPexelData()
  * 关闭按钮处理事件
  */
 const router = useRouter()
+const store = useStore()
 const onPop = () => {
+  store.commit('app/changeRouterType', 'back')
   router.back()
 }
 </script>

@@ -1,10 +1,10 @@
 <template>
   <!-- 单个的支付项目 -->
   <div
-    class="flex-none flex flex-col items-center rounded-md w-[120px] mt-2 mr-2 relative cursor-pointer border hover:bg-orange-50 hover:border-orange-300 xl:w-[150px] py-4 xl:py-2"
+    class="flex-none flex flex-col items-center rounded-md w-[120px] mt-2 mr-2 relative cursor-pointer border hover:bg-orange-50 dark:hover:bg-transparent hover:border-orange-300 xl:w-[150px] py-4 xl:py-2"
     :class="[
       select
-        ? ' bg-orange-50 dark:bg-orange-200/30 border-orange-300'
+        ? ' bg-orange-50 dark:bg-orange-200/30 border-orange-300 dark:hover:bg-orange-200/20'
         : ' bg-transparent border-zinc-300 dark:border-zinc-500'
     ]"
     @click="onItemClick"

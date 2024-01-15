@@ -10,16 +10,16 @@
 
       <div class="py-2 px-1">
         <h2
-          class="text-[34px] font-bold text-center text-yellow-700tracking-widest"
+          class="text-[34px] font-bold text-center text-yellow-700 tracking-widest mb-1"
         >
           精选VIP
         </h2>
         <p class="text-yellow-400 text-lg text-center">
-          升级精选VIP畅想所有内容
+          升级精选VIP畅享所有内容
         </p>
         <!-- VIP价格菜单列表 -->
         <div
-          class="flex flex-nowrap overflow-auto justify-between mt-5 pb-2 scrollbar-thin scrollbar-thumb-zinc-600 dark:scrollbar-thumb-zinc-200 scrollbar-track-transparent"
+          class="flex flex-nowrap overflow-auto justify-between mt-5 pb-2 scrollbar-thin scrollbar-thumb-zinc-500 scrollbar-track-transparent"
         >
           <pay-menu-item
             v-for="item in vipPayListData"
@@ -32,8 +32,8 @@
         </div>
         <!-- 特定item的说明文字 -->
         <p class="text-sm mt-1 text-zinc-500">{{ currentItem.desc }}</p>
-
         <!-- 支付模块 -->
+        <payment-vue></payment-vue>
       </div>
     </div>
   </div>
@@ -50,6 +50,7 @@ import { useRouter } from 'vue-router'
 import PayMenuItem from './components/PayMenuItem.vue'
 import { getVipPayList } from '@/api/pay'
 import { ref } from 'vue'
+import PaymentVue from './components/payment/index.vue'
 
 const store = useStore()
 const router = useRouter()

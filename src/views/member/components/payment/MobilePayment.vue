@@ -12,13 +12,24 @@
         <my-button
           class="w-[120px] dark:text-white dark:bg-zinc-900"
           :isActiveAnim="false"
+          @click="onOpenClick"
         >
           立即开通
         </my-button>
       </div>
     </div>
+    <popup-list v-model="isOpenPopup" class="rounded">
+      <mobile-select></mobile-select>
+    </popup-list>
   </div>
 </template>
 <script setup>
+import { ref } from 'vue'
 import DiscountsVue from './DiscountsVue.vue'
+import MobileSelect from './MobileSelect.vue'
+
+const isOpenPopup = ref(false)
+const onOpenClick = () => {
+  isOpenPopup.value = true
+}
 </script>

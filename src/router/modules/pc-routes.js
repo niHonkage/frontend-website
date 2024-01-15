@@ -16,6 +16,15 @@ export default [
         meta: {
           user: true
         }
+      },
+      {
+        path: '/member',
+        name: 'member',
+        component: () => import('@/views/member/index.vue'),
+        meta: {
+          // 标记需要用户权限
+          user: true
+        }
       }
     ]
   },

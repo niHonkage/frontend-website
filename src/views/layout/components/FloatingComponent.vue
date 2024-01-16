@@ -35,7 +35,12 @@
             class="w-1.5 h-1.5 mr-1"
             fillClass="fill-zinc-900 dark:fill-zinc-200 group-hover:fill-main"
           ></svg-icon>
-          <span class="text-sm text-zinc-800 dark:bg-zinc-300">立即吐槽</span>
+          <a
+            class="text-sm no-underline text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300"
+            target="_blank"
+            :href="FEEDBACK_URL"
+            >立即吐槽</a
+          >
         </div>
       </div>
     </popover-card>
@@ -45,6 +50,7 @@
 import { driver } from 'driver.js'
 import 'driver.js/dist/driver.css'
 import { onMounted } from 'vue'
+import { FEEDBACK_URL } from '@/constants'
 
 // 初始化
 let driverObj = null
